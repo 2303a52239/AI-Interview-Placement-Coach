@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme tokens (RGB triplets so Tailwind opacity modifiers work). Light is the default; `.dark` overrides. */
+:root {
+  --ink: 23 27 31; --ink-soft: 42 49 58; --ink-faint: 91 100 112;
+  --paper: 243 244 240; --panel: 255 255 255; --line: 228 229 223;
+  --amber: 217 164 65; --amber-dark: 185 131 42; --amber-light: 242 217 168;
+  --teal: 47 111 94; --teal-dark: 32 76 64; --teal-light: 220 235 230;
+  --clay: 181 80 47;
+  --sidebar: 23 27 31; --sidebar-fg: 243 244 240;
+  color-scheme: light;
+}
+.dark {
+  --ink: 236 238 240; --ink-soft: 200 205 212; --ink-faint: 150 158 170;
+  --paper: 14 17 21; --panel: 23 27 33; --line: 44 50 60;
+  --amber: 230 178 80; --amber-dark: 240 200 120; --amber-light: 72 56 26;
+  --teal: 78 172 146; --teal-dark: 134 212 190; --teal-light: 24 58 50;
+  --clay: 228 120 86;
+  --sidebar: 10 12 15; --sidebar-fg: 236 238 240;
+  color-scheme: dark;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background-color: rgb(var(--paper));
+  color: rgb(var(--ink));
+  -webkit-font-smoothing: antialiased;
+  transition: background-color .2s ease, color .2s ease;
+}
+
+::selection {
+  background-color: rgb(var(--amber-light));
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--amber)) rgb(var(--line));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+
+/* corner tick mark used as a recurring index-card motif */
+.tick-corner {
+  position: relative;
+}
+.tick-corner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border-top: 2px solid rgb(var(--amber));
+  border-left: 2px solid rgb(var(--amber));
+}
+.tick-corner::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 14px;
+  height: 14px;
+  border-bottom: 2px solid rgb(var(--amber));
+  border-right: 2px solid rgb(var(--amber));
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid rgb(var(--amber));
+  outline-offset: 2px;
+}

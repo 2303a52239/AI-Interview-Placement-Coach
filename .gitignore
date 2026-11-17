@@ -1,0 +1,35 @@
+# --- Python / backend ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+*.db
+backend/uploads/
+backend/code_runs/
+backend/test_uploads/
+backend/test_code_runs/
+backend/.env
+.pytest_cache/
+.coverage
+htmlcov/
+
+# --- Node / frontend ---
+node_modules/
+frontend/dist/
+frontend/.env
+npm-debug.log*
+
+# --- Editors / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- Secrets ---
+*.pem
+*.key
+.env
+.env.*
+!.env.example

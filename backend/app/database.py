@@ -1,0 +1,30 @@
+"""
+SQLAlchemy engine / session management.
+
+Primary target database: PostgreSQL (DATABASE_URL=postgresql+psycopg2://...)
+For quick local demos without installing PostgreSQL, a SQLite URL also works
+(DATABASE_URL=sqlite:///./dev.db) - see README for details on both paths.
+"""
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
+
+from app.config import settings
+
+connect_args = {}
+if settings.DATABASE_URL.startswith("sqlite"):
+    # Needed for SQLite when used with FastAPI's threaded request handling
+    connect_args = {"check_same_thread": False}
+
+engine = create_engine(settings.DATABASE_URL, connect_args=connect_args, pool_pre_ping=True)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+Base = declarative_base()
+
+
+def get_db():
+    """FastAPI dependency that yields a DB session and closes it afterwards."""
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

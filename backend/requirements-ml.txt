@@ -1,0 +1,6 @@
+# OPTIONAL. Real semantic embeddings and cross-encoder reranking for the study assistant.
+# Large download (PyTorch + model weights, ~1 GB). Without this the app uses hashing embeddings,
+# which are lexical only and are labelled as such in the UI.
+# After installing, set EMBEDDING_PROVIDER=sentence-transformers (and optionally RERANK_PROVIDER=cross-encoder)
+# and re-index documents from the Study Assistant page.
+sentence-transformers>=3.0

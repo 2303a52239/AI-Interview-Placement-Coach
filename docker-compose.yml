@@ -1,0 +1,57 @@
+# Full stack with Docker. The primary documented route is the non-Docker Windows setup in README.md.
+#   docker build -t placement-sandbox:latest ./sandbox     # once; the API runs candidate code in this image
+#   docker compose up --build
+# Change JWT_SECRET (and the database password) before exposing this beyond your machine.
+services:
+  db:
+    image: pgvector/pgvector:pg16          # PostgreSQL 16 with the pgvector extension
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: interview_coach
+    ports: ["5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    depends_on:
+      db: { condition: service_healthy }
+    environment:
+      ENVIRONMENT: development
+      DATABASE_URL: postgresql+psycopg2://postgres:${POSTGRES_PASSWORD:-postgres}@db:5432/interview_coach
+      JWT_SECRET: ${JWT_SECRET:-change-this-to-a-long-random-string}
+      AI_PROVIDER: ${AI_PROVIDER:-mock}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      CORS_ORIGINS: http://localhost:5173,http://localhost:3000
+      EXECUTION_BACKEND: docker
+      SANDBOX_IMAGE: placement-sandbox:latest
+      UPLOAD_DIR: /data/uploads
+      # Same absolute path inside and outside the container: the host Docker daemon resolves the sandbox
+      # bind-mount against the HOST filesystem, so the path must exist identically on the host.
+      CODE_EXEC_DIR: /tmp/placement_code_runs
+    ports: ["8000:8000"]
+    volumes:
+      - appdata:/data
+      - /tmp/placement_code_runs:/tmp/placement_code_runs
+      # Gives the API access to the host's Docker so it can start sandbox containers. This is powerful:
+      # anyone who can run code in the API process can control the host Docker. See docs/ADVANCED_EDITION.md.
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  frontend:
+    build: { context: ./frontend, target: dev }
+    restart: unless-stopped
+    depends_on: [backend]
+    environment:
+      VITE_API_URL: http://localhost:8000
+    ports: ["5173:5173"]
+
+volumes:
+  pgdata:
+  appdata:

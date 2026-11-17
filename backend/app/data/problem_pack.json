@@ -1,0 +1,1929 @@
+[
+ {
+  "title": "Two Sum Indices",
+  "difficulty": "easy",
+  "topic_tag": "arrays",
+  "problem_statement": "Given n integers and a target, find two different positions i < j whose values add up to the target. Print i and j (0-based) separated by a space. If several pairs exist print the one with the smallest j, then the smallest i. A pair is guaranteed to exist.",
+  "input_format": "Line 1: n. Line 2: n integers. Line 3: target.",
+  "output_format": "Two integers i j.",
+  "constraints": "2 <= n <= 10^4",
+  "sample_input": "4\n2 7 11 15\n9",
+  "sample_output": "0 1",
+  "tests": [
+   {
+    "input": "4\n2 7 11 15\n9",
+    "expected_output": "0 1",
+    "hidden": false
+   },
+   {
+    "input": "3\n3 2 4\n6",
+    "expected_output": "1 2",
+    "hidden": false
+   },
+   {
+    "input": "2\n3 3\n6",
+    "expected_output": "0 1",
+    "hidden": true
+   },
+   {
+    "input": "5\n-1 -2 -3 -4 -5\n-8",
+    "expected_output": "2 4",
+    "hidden": true
+   },
+   {
+    "input": "6\n1 5 3 7 9 2\n12",
+    "expected_output": "1 3",
+    "hidden": true
+   },
+   {
+    "input": "5\n0 4 3 0 8\n0",
+    "expected_output": "0 3",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Contains Duplicate",
+  "difficulty": "easy",
+  "topic_tag": "arrays",
+  "problem_statement": "Print YES if any value occurs at least twice in the array, otherwise NO.",
+  "input_format": "Line 1: n. Line 2: n integers.",
+  "output_format": "YES or NO",
+  "constraints": "1 <= n <= 10^5",
+  "sample_input": "4\n1 2 3 1",
+  "sample_output": "YES",
+  "tests": [
+   {
+    "input": "4\n1 2 3 1",
+    "expected_output": "YES",
+    "hidden": false
+   },
+   {
+    "input": "4\n1 2 3 4",
+    "expected_output": "NO",
+    "hidden": false
+   },
+   {
+    "input": "1\n5",
+    "expected_output": "NO",
+    "hidden": true
+   },
+   {
+    "input": "10\n1 1 1 3 3 4 3 2 4 2",
+    "expected_output": "YES",
+    "hidden": true
+   },
+   {
+    "input": "1000\n0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199 200 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215 216 217 218 219 220 221 222 223 224 225 226 227 228 229 230 231 232 233 234 235 236 237 238 239 240 241 242 243 244 245 246 247 248 249 250 251 252 253 254 255 256 257 258 259 260 261 262 263 264 265 266 267 268 269 270 271 272 273 274 275 276 277 278 279 280 281 282 283 284 285 286 287 288 289 290 291 292 293 294 295 296 297 298 299 300 301 302 303 304 305 306 307 308 309 310 311 312 313 314 315 316 317 318 319 320 321 322 323 324 325 326 327 328 329 330 331 332 333 334 335 336 337 338 339 340 341 342 343 344 345 346 347 348 349 350 351 352 353 354 355 356 357 358 359 360 361 362 363 364 365 366 367 368 369 370 371 372 373 374 375 376 377 378 379 380 381 382 383 384 385 386 387 388 389 390 391 392 393 394 395 396 397 398 399 400 401 402 403 404 405 406 407 408 409 410 411 412 413 414 415 416 417 418 419 420 421 422 423 424 425 426 427 428 429 430 431 432 433 434 435 436 437 438 439 440 441 442 443 444 445 446 447 448 449 450 451 452 453 454 455 456 457 458 459 460 461 462 463 464 465 466 467 468 469 470 471 472 473 474 475 476 477 478 479 480 481 482 483 484 485 486 487 488 489 490 491 492 493 494 495 496 497 498 499 500 501 502 503 504 505 506 507 508 509 510 511 512 513 514 515 516 517 518 519 520 521 522 523 524 525 526 527 528 529 530 531 532 533 534 535 536 537 538 539 540 541 542 543 544 545 546 547 548 549 550 551 552 553 554 555 556 557 558 559 560 561 562 563 564 565 566 567 568 569 570 571 572 573 574 575 576 577 578 579 580 581 582 583 584 585 586 587 588 589 590 591 592 593 594 595 596 597 598 599 600 601 602 603 604 605 606 607 608 609 610 611 612 613 614 615 616 617 618 619 620 621 622 623 624 625 626 627 628 629 630 631 632 633 634 635 636 637 638 639 640 641 642 643 644 645 646 647 648 649 650 651 652 653 654 655 656 657 658 659 660 661 662 663 664 665 666 667 668 669 670 671 672 673 674 675 676 677 678 679 680 681 682 683 684 685 686 687 688 689 690 691 692 693 694 695 696 697 698 699 700 701 702 703 704 705 706 707 708 709 710 711 712 713 714 715 716 717 718 719 720 721 722 723 724 725 726 727 728 729 730 731 732 733 734 735 736 737 738 739 740 741 742 743 744 745 746 747 748 749 750 751 752 753 754 755 756 757 758 759 760 761 762 763 764 765 766 767 768 769 770 771 772 773 774 775 776 777 778 779 780 781 782 783 784 785 786 787 788 789 790 791 792 793 794 795 796 797 798 799 800 801 802 803 804 805 806 807 808 809 810 811 812 813 814 815 816 817 818 819 820 821 822 823 824 825 826 827 828 829 830 831 832 833 834 835 836 837 838 839 840 841 842 843 844 845 846 847 848 849 850 851 852 853 854 855 856 857 858 859 860 861 862 863 864 865 866 867 868 869 870 871 872 873 874 875 876 877 878 879 880 881 882 883 884 885 886 887 888 889 890 891 892 893 894 895 896 897 898 899 900 901 902 903 904 905 906 907 908 909 910 911 912 913 914 915 916 917 918 919 920 921 922 923 924 925 926 927 928 929 930 931 932 933 934 935 936 937 938 939 940 941 942 943 944 945 946 947 948 949 950 951 952 953 954 955 956 957 958 959 960 961 962 963 964 965 966 967 968 969 970 971 972 973 974 975 976 977 978 979 980 981 982 983 984 985 986 987 988 989 990 991 992 993 994 995 996 997 998 999",
+    "expected_output": "NO",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Valid Anagram",
+  "difficulty": "easy",
+  "topic_tag": "strings",
+  "problem_statement": "Two lowercase words are anagrams if one can be rearranged into the other. Print YES or NO.",
+  "input_format": "Two lines, one word each.",
+  "output_format": "YES or NO",
+  "constraints": "1 <= length <= 10^5",
+  "sample_input": "anagram\nnagaram",
+  "sample_output": "YES",
+  "tests": [
+   {
+    "input": "anagram\nnagaram",
+    "expected_output": "YES",
+    "hidden": false
+   },
+   {
+    "input": "rat\ncar",
+    "expected_output": "NO",
+    "hidden": false
+   },
+   {
+    "input": "a\na",
+    "expected_output": "YES",
+    "hidden": true
+   },
+   {
+    "input": "listen\nsilent",
+    "expected_output": "YES",
+    "hidden": true
+   },
+   {
+    "input": "abc\nabcc",
+    "expected_output": "NO",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Best Time to Trade",
+  "difficulty": "easy",
+  "topic_tag": "arrays",
+  "problem_statement": "Given the price of a stock on each day, you may buy on one day and sell on a later day. Print the maximum profit, or 0 if no profit is possible.",
+  "input_format": "Line 1: n. Line 2: n prices.",
+  "output_format": "One integer.",
+  "constraints": "1 <= n <= 10^5",
+  "sample_input": "6\n7 1 5 3 6 4",
+  "sample_output": "5",
+  "tests": [
+   {
+    "input": "6\n7 1 5 3 6 4",
+    "expected_output": "5",
+    "hidden": false
+   },
+   {
+    "input": "5\n7 6 4 3 1",
+    "expected_output": "0",
+    "hidden": false
+   },
+   {
+    "input": "1\n5",
+    "expected_output": "0",
+    "hidden": true
+   },
+   {
+    "input": "3\n2 4 1",
+    "expected_output": "2",
+    "hidden": true
+   },
+   {
+    "input": "50\n16 41 65 66 83 14 29 77 80 72 54 74 71 94 100 99 63 97 99 76 57 31 1 79 11 15 37 13 58 2 88 63 87 41 27 51 33 45 46 49 96 66 82 10 93 44 12 72 69 38",
+    "expected_output": "95",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Missing Number",
+  "difficulty": "easy",
+  "topic_tag": "arrays",
+  "problem_statement": "An array holds n distinct numbers taken from 0..n. Exactly one number of that range is missing. Print it.",
+  "input_format": "Line 1: n. Line 2: n integers.",
+  "output_format": "One integer.",
+  "constraints": "1 <= n <= 10^5",
+  "sample_input": "3\n3 0 1",
+  "sample_output": "2",
+  "tests": [
+   {
+    "input": "3\n3 0 1",
+    "expected_output": "2",
+    "hidden": false
+   },
+   {
+    "input": "2\n0 1",
+    "expected_output": "2",
+    "hidden": false
+   },
+   {
+    "input": "9\n9 6 4 2 3 5 7 0 1",
+    "expected_output": "8",
+    "hidden": true
+   },
+   {
+    "input": "1\n0",
+    "expected_output": "1",
+    "hidden": true
+   },
+   {
+    "input": "1\n1",
+    "expected_output": "0",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Single Number",
+  "difficulty": "easy",
+  "topic_tag": "arrays",
+  "problem_statement": "Every value appears exactly twice except one that appears once. Print that value.",
+  "input_format": "Line 1: n (odd). Line 2: n integers.",
+  "output_format": "One integer.",
+  "constraints": "1 <= n <= 10^5",
+  "sample_input": "3\n2 2 1",
+  "sample_output": "1",
+  "tests": [
+   {
+    "input": "3\n2 2 1",
+    "expected_output": "1",
+    "hidden": false
+   },
+   {
+    "input": "5\n4 1 2 1 2",
+    "expected_output": "4",
+    "hidden": false
+   },
+   {
+    "input": "1\n1",
+    "expected_output": "1",
+    "hidden": true
+   },
+   {
+    "input": "3\n-3 5 -3",
+    "expected_output": "5",
+    "hidden": true
+   },
+   {
+    "input": "5\n9 8 9 7 8",
+    "expected_output": "7",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Move Zeroes",
+  "difficulty": "easy",
+  "topic_tag": "arrays",
+  "problem_statement": "Move all zeroes to the end of the array while keeping the order of the other values. Print the resulting array.",
+  "input_format": "Line 1: n. Line 2: n integers.",
+  "output_format": "n integers separated by spaces.",
+  "constraints": "1 <= n <= 10^5",
+  "sample_input": "5\n0 1 0 3 12",
+  "sample_output": "1 3 12 0 0",
+  "tests": [
+   {
+    "input": "5\n0 1 0 3 12",
+    "expected_output": "1 3 12 0 0",
+    "hidden": false
+   },
+   {
+    "input": "1\n0",
+    "expected_output": "0",
+    "hidden": false
+   },
+   {
+    "input": "3\n1 2 3",
+    "expected_output": "1 2 3",
+    "hidden": true
+   },
+   {
+    "input": "3\n0 0 1",
+    "expected_output": "1 0 0",
+    "hidden": true
+   },
+   {
+    "input": "6\n4 0 0 5 0 6",
+    "expected_output": "4 5 6 0 0 0",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Merge Two Sorted Arrays",
+  "difficulty": "easy",
+  "topic_tag": "arrays",
+  "problem_statement": "Merge two sorted (ascending) arrays into one sorted array and print it.",
+  "input_format": "Line 1: n, line 2: n integers. Line 3: m, line 4: m integers (an empty array is an empty line).",
+  "output_format": "n+m integers.",
+  "constraints": "0 <= n, m <= 10^5",
+  "sample_input": "3\n1 2 4\n3\n1 3 4",
+  "sample_output": "1 1 2 3 4 4",
+  "tests": [
+   {
+    "input": "3\n1 2 4\n3\n1 3 4",
+    "expected_output": "1 1 2 3 4 4",
+    "hidden": false
+   },
+   {
+    "input": "1\n1\n0\n",
+    "expected_output": "1",
+    "hidden": false
+   },
+   {
+    "input": "0\n\n1\n5",
+    "expected_output": "5",
+    "hidden": true
+   },
+   {
+    "input": "2\n-5 0\n2\n-3 9",
+    "expected_output": "-5 -3 0 9",
+    "hidden": true
+   },
+   {
+    "input": "4\n1 1 1 1\n2\n1 1",
+    "expected_output": "1 1 1 1 1 1",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Majority Element",
+  "difficulty": "easy",
+  "topic_tag": "arrays",
+  "problem_statement": "One value appears more than n/2 times. Print it.",
+  "input_format": "Line 1: n. Line 2: n integers.",
+  "output_format": "One integer.",
+  "constraints": "1 <= n <= 10^5",
+  "sample_input": "3\n3 2 3",
+  "sample_output": "3",
+  "tests": [
+   {
+    "input": "3\n3 2 3",
+    "expected_output": "3",
+    "hidden": false
+   },
+   {
+    "input": "7\n2 2 1 1 1 2 2",
+    "expected_output": "2",
+    "hidden": false
+   },
+   {
+    "input": "1\n7",
+    "expected_output": "7",
+    "hidden": true
+   },
+   {
+    "input": "5\n5 5 5 1 2",
+    "expected_output": "5",
+    "hidden": true
+   },
+   {
+    "input": "50\n1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 6 9 4 6 2 7 7 9 8 3 8 9 3 8 9 8 6 8 9 2",
+    "expected_output": "1",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Rotate Array",
+  "difficulty": "medium",
+  "topic_tag": "arrays",
+  "problem_statement": "Rotate the array to the right by k positions and print the result.",
+  "input_format": "Line 1: n. Line 2: n integers. Line 3: k.",
+  "output_format": "n integers.",
+  "constraints": "1 <= n <= 10^5, 0 <= k <= 10^9",
+  "sample_input": "7\n1 2 3 4 5 6 7\n3",
+  "sample_output": "5 6 7 1 2 3 4",
+  "tests": [
+   {
+    "input": "7\n1 2 3 4 5 6 7\n3",
+    "expected_output": "5 6 7 1 2 3 4",
+    "hidden": false
+   },
+   {
+    "input": "4\n-1 -100 3 99\n2",
+    "expected_output": "3 99 -1 -100",
+    "hidden": false
+   },
+   {
+    "input": "1\n5\n10",
+    "expected_output": "5",
+    "hidden": true
+   },
+   {
+    "input": "5\n1 2 3 4 5\n0",
+    "expected_output": "1 2 3 4 5",
+    "hidden": true
+   },
+   {
+    "input": "5\n1 2 3 4 5\n5",
+    "expected_output": "1 2 3 4 5",
+    "hidden": true
+   },
+   {
+    "input": "6\n9 8 7 6 5 4\n1000000001",
+    "expected_output": "8 7 6 5 4 9",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Product of Array Except Self",
+  "difficulty": "medium",
+  "topic_tag": "arrays",
+  "problem_statement": "For each position print the product of all other values. Use the fact that the answer fits in 64 bits; do not use division.",
+  "input_format": "Line 1: n. Line 2: n integers.",
+  "output_format": "n integers.",
+  "constraints": "2 <= n <= 10^5, |value| <= 10",
+  "sample_input": "4\n1 2 3 4",
+  "sample_output": "24 12 8 6",
+  "tests": [
+   {
+    "input": "4\n1 2 3 4",
+    "expected_output": "24 12 8 6",
+    "hidden": false
+   },
+   {
+    "input": "5\n-1 1 0 -3 3",
+    "expected_output": "0 0 9 0 0",
+    "hidden": false
+   },
+   {
+    "input": "2\n2 3",
+    "expected_output": "3 2",
+    "hidden": true
+   },
+   {
+    "input": "3\n0 0 5",
+    "expected_output": "0 0 0",
+    "hidden": true
+   },
+   {
+    "input": "12\n4 -2 -3 -5 3 5 -4 4 1 2 -3 2",
+    "expected_output": "-86400 172800 115200 69120 -115200 -69120 86400 -86400 -345600 -172800 115200 -172800",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Container With Most Water",
+  "difficulty": "medium",
+  "topic_tag": "two_pointers",
+  "problem_statement": "Each number is the height of a vertical line at positions 0..n-1. Choose two lines; the water held is the smaller height times the distance between them. Print the maximum.",
+  "input_format": "Line 1: n. Line 2: n heights.",
+  "output_format": "One integer.",
+  "constraints": "2 <= n <= 10^5",
+  "sample_input": "9\n1 8 6 2 5 4 8 3 7",
+  "sample_output": "49",
+  "tests": [
+   {
+    "input": "9\n1 8 6 2 5 4 8 3 7",
+    "expected_output": "49",
+    "hidden": false
+   },
+   {
+    "input": "2\n1 1",
+    "expected_output": "1",
+    "hidden": false
+   },
+   {
+    "input": "5\n4 3 2 1 4",
+    "expected_output": "16",
+    "hidden": true
+   },
+   {
+    "input": "3\n1 2 1",
+    "expected_output": "2",
+    "hidden": true
+   },
+   {
+    "input": "40\n453 118 436 454 63 321 359 234 346 241 366 476 492 280 129 287 206 343 158 281 410 332 257 358 246 413 453 206 222 104 151 426 138 5 17 77 336 452 306 492",
+    "expected_output": "17667",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Three Sum Count",
+  "difficulty": "medium",
+  "topic_tag": "two_pointers",
+  "problem_statement": "Count the distinct value triplets (a, b, c) taken from different positions with a + b + c = 0. Triplets that use the same values in a different order count once.",
+  "input_format": "Line 1: n. Line 2: n integers.",
+  "output_format": "One integer.",
+  "constraints": "3 <= n <= 2000",
+  "sample_input": "6\n-1 0 1 2 -1 -4",
+  "sample_output": "2",
+  "tests": [
+   {
+    "input": "6\n-1 0 1 2 -1 -4",
+    "expected_output": "2",
+    "hidden": false
+   },
+   {
+    "input": "3\n0 1 1",
+    "expected_output": "0",
+    "hidden": false
+   },
+   {
+    "input": "3\n0 0 0",
+    "expected_output": "1",
+    "hidden": true
+   },
+   {
+    "input": "4\n0 0 0 0",
+    "expected_output": "1",
+    "hidden": true
+   },
+   {
+    "input": "60\n9 13 11 3 -8 -4 11 9 12 11 7 15 -18 -2 0 9 -14 8 12 -4 8 -9 7 10 -16 -3 11 3 -14 -8 6 -11 8 -20 -15 -20 8 17 14 -15 19 -8 -5 -13 19 -18 14 -3 20 2 -11 -20 0 17 16 11 -12 14 -6 10",
+    "expected_output": "98",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Maximum Product Subarray",
+  "difficulty": "medium",
+  "topic_tag": "dynamic_programming",
+  "problem_statement": "Find the largest product of any contiguous, non-empty subarray.",
+  "input_format": "Line 1: n. Line 2: n integers.",
+  "output_format": "One integer.",
+  "constraints": "1 <= n <= 2*10^4, |value| <= 10",
+  "sample_input": "4\n2 3 -2 4",
+  "sample_output": "6",
+  "tests": [
+   {
+    "input": "4\n2 3 -2 4",
+    "expected_output": "6",
+    "hidden": false
+   },
+   {
+    "input": "3\n-2 0 -1",
+    "expected_output": "0",
+    "hidden": false
+   },
+   {
+    "input": "1\n-3",
+    "expected_output": "-3",
+    "hidden": true
+   },
+   {
+    "input": "3\n-2 3 -4",
+    "expected_output": "24",
+    "hidden": true
+   },
+   {
+    "input": "15\n-2 4 0 -3 2 -2 -2 0 4 2 2 -2 4 -1 2",
+    "expected_output": "256",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Trapping Rain Water",
+  "difficulty": "hard",
+  "topic_tag": "two_pointers",
+  "problem_statement": "Each number is the height of a bar of width 1. After rain, water collects between the bars. Print how many units of water are trapped.",
+  "input_format": "Line 1: n. Line 2: n heights.",
+  "output_format": "One integer.",
+  "constraints": "1 <= n <= 10^5",
+  "sample_input": "12\n0 1 0 2 1 0 1 3 2 1 2 1",
+  "sample_output": "6",
+  "tests": [
+   {
+    "input": "12\n0 1 0 2 1 0 1 3 2 1 2 1",
+    "expected_output": "6",
+    "hidden": false
+   },
+   {
+    "input": "6\n4 2 0 3 2 5",
+    "expected_output": "9",
+    "hidden": false
+   },
+   {
+    "input": "1\n3",
+    "expected_output": "0",
+    "hidden": true
+   },
+   {
+    "input": "3\n1 2 3",
+    "expected_output": "0",
+    "hidden": true
+   },
+   {
+    "input": "30\n0 1 6 1 0 5 5 0 0 8 7 5 4 7 5 1 7 7 9 9 2 2 9 8 3 6 9 5 7 9",
+    "expected_output": "76",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Sliding Window Maximum",
+  "difficulty": "hard",
+  "topic_tag": "sliding_window",
+  "problem_statement": "Slide a window of size k from left to right over the array. Print the maximum of each window position.",
+  "input_format": "Line 1: n. Line 2: n integers. Line 3: k.",
+  "output_format": "n-k+1 integers.",
+  "constraints": "1 <= k <= n <= 10^5",
+  "sample_input": "8\n1 3 -1 -3 5 3 6 7\n3",
+  "sample_output": "3 3 5 5 6 7",
+  "tests": [
+   {
+    "input": "8\n1 3 -1 -3 5 3 6 7\n3",
+    "expected_output": "3 3 5 5 6 7",
+    "hidden": false
+   },
+   {
+    "input": "1\n1\n1",
+    "expected_output": "1",
+    "hidden": false
+   },
+   {
+    "input": "5\n9 8 7 6 5\n2",
+    "expected_output": "9 8 7 6",
+    "hidden": true
+   },
+   {
+    "input": "6\n1 2 3 4 5 6\n6",
+    "expected_output": "6",
+    "hidden": true
+   },
+   {
+    "input": "10\n4 2 12 11 -5 7 7 0 3 3\n4",
+    "expected_output": "12 12 12 11 7 7 7",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Jump Game",
+  "difficulty": "medium",
+  "topic_tag": "greedy",
+  "problem_statement": "Each value is the maximum jump length from that position. Starting at index 0, print YES if you can reach the last index, otherwise NO.",
+  "input_format": "Line 1: n. Line 2: n non-negative integers.",
+  "output_format": "YES or NO",
+  "constraints": "1 <= n <= 10^4",
+  "sample_input": "5\n2 3 1 1 4",
+  "sample_output": "YES",
+  "tests": [
+   {
+    "input": "5\n2 3 1 1 4",
+    "expected_output": "YES",
+    "hidden": false
+   },
+   {
+    "input": "5\n3 2 1 0 4",
+    "expected_output": "NO",
+    "hidden": false
+   },
+   {
+    "input": "1\n0",
+    "expected_output": "YES",
+    "hidden": true
+   },
+   {
+    "input": "2\n1 0",
+    "expected_output": "YES",
+    "hidden": true
+   },
+   {
+    "input": "3\n2 0 0",
+    "expected_output": "YES",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Merge Intervals",
+  "difficulty": "medium",
+  "topic_tag": "sorting",
+  "problem_statement": "Merge all overlapping intervals (touching endpoints count as overlapping). Print the merged intervals sorted by start, one per line as 'start end'.",
+  "input_format": "Line 1: n. Then n lines: start end.",
+  "output_format": "Merged intervals, one per line.",
+  "constraints": "1 <= n <= 10^4",
+  "sample_input": "4\n1 3\n2 6\n8 10\n15 18",
+  "sample_output": "1 6\n8 10\n15 18",
+  "tests": [
+   {
+    "input": "4\n1 3\n2 6\n8 10\n15 18",
+    "expected_output": "1 6\n8 10\n15 18",
+    "hidden": false
+   },
+   {
+    "input": "2\n1 4\n4 5",
+    "expected_output": "1 5",
+    "hidden": false
+   },
+   {
+    "input": "1\n5 7",
+    "expected_output": "5 7",
+    "hidden": true
+   },
+   {
+    "input": "3\n1 10\n2 3\n4 5",
+    "expected_output": "1 10",
+    "hidden": true
+   },
+   {
+    "input": "5\n6 8\n1 9\n2 4\n4 7\n10 12",
+    "expected_output": "1 9\n10 12",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Kth Largest Element",
+  "difficulty": "medium",
+  "topic_tag": "heap",
+  "problem_statement": "Print the k-th largest value (counting duplicates) of the array.",
+  "input_format": "Line 1: n. Line 2: n integers. Line 3: k.",
+  "output_format": "One integer.",
+  "constraints": "1 <= k <= n <= 10^5",
+  "sample_input": "6\n3 2 1 5 6 4\n2",
+  "sample_output": "5",
+  "tests": [
+   {
+    "input": "6\n3 2 1 5 6 4\n2",
+    "expected_output": "5",
+    "hidden": false
+   },
+   {
+    "input": "9\n3 2 3 1 2 4 5 5 6\n4",
+    "expected_output": "4",
+    "hidden": false
+   },
+   {
+    "input": "1\n7\n1",
+    "expected_output": "7",
+    "hidden": true
+   },
+   {
+    "input": "5\n-1 -5 -3 -2 -4\n5",
+    "expected_output": "-5",
+    "hidden": true
+   },
+   {
+    "input": "8\n5 5 5 5 5 5 5 5\n3",
+    "expected_output": "5",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Daily Temperatures",
+  "difficulty": "medium",
+  "topic_tag": "stack",
+  "problem_statement": "For each day print how many days you must wait for a warmer temperature, or 0 if none will come.",
+  "input_format": "Line 1: n. Line 2: n temperatures.",
+  "output_format": "n integers.",
+  "constraints": "1 <= n <= 10^5",
+  "sample_input": "8\n73 74 75 71 69 72 76 73",
+  "sample_output": "1 1 4 2 1 1 0 0",
+  "tests": [
+   {
+    "input": "8\n73 74 75 71 69 72 76 73",
+    "expected_output": "1 1 4 2 1 1 0 0",
+    "hidden": false
+   },
+   {
+    "input": "4\n30 40 50 60",
+    "expected_output": "1 1 1 0",
+    "hidden": false
+   },
+   {
+    "input": "3\n30 60 90",
+    "expected_output": "1 1 0",
+    "hidden": true
+   },
+   {
+    "input": "1\n5",
+    "expected_output": "0",
+    "hidden": true
+   },
+   {
+    "input": "25\n59 38 100 81 34 55 52 35 99 36 87 54 91 32 46 97 57 96 47 50 53 79 64 84 98",
+    "expected_output": "2 1 0 5 1 3 2 1 0 1 2 1 3 1 1 9 1 7 1 1 1 2 1 1 0",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Largest Rectangle in Histogram",
+  "difficulty": "hard",
+  "topic_tag": "stack",
+  "problem_statement": "Bars of width 1 have the given heights. Print the area of the largest rectangle that fits inside the histogram.",
+  "input_format": "Line 1: n. Line 2: n heights.",
+  "output_format": "One integer.",
+  "constraints": "1 <= n <= 10^5",
+  "sample_input": "6\n2 1 5 6 2 3",
+  "sample_output": "10",
+  "tests": [
+   {
+    "input": "6\n2 1 5 6 2 3",
+    "expected_output": "10",
+    "hidden": false
+   },
+   {
+    "input": "2\n2 4",
+    "expected_output": "4",
+    "hidden": false
+   },
+   {
+    "input": "1\n5",
+    "expected_output": "5",
+    "hidden": true
+   },
+   {
+    "input": "4\n1 1 1 1",
+    "expected_output": "4",
+    "hidden": true
+   },
+   {
+    "input": "30\n14 28 3 13 10 6 12 6 9 15 16 25 27 14 10 15 6 11 17 16 15 4 17 26 17 26 9 27 4 28",
+    "expected_output": "108",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Reverse Words",
+  "difficulty": "easy",
+  "topic_tag": "strings",
+  "problem_statement": "Reverse the order of the words in a line. Words are separated by one or more spaces; print them separated by a single space.",
+  "input_format": "One line of text.",
+  "output_format": "One line.",
+  "constraints": "1 <= length <= 10^4",
+  "sample_input": "the sky is blue",
+  "sample_output": "blue is sky the",
+  "tests": [
+   {
+    "input": "the sky is blue",
+    "expected_output": "blue is sky the",
+    "hidden": false
+   },
+   {
+    "input": "  hello   world  ",
+    "expected_output": "world hello",
+    "hidden": false
+   },
+   {
+    "input": "a",
+    "expected_output": "a",
+    "hidden": true
+   },
+   {
+    "input": "one two  three   four",
+    "expected_output": "four three two one",
+    "hidden": true
+   },
+   {
+    "input": "keep calm and code on",
+    "expected_output": "on code and calm keep",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Longest Common Prefix",
+  "difficulty": "easy",
+  "topic_tag": "strings",
+  "problem_statement": "Print the longest common prefix of the given words, or the single word NONE if they share no prefix.",
+  "input_format": "Line 1: n. Then n lines, one word each.",
+  "output_format": "A string.",
+  "constraints": "1 <= n <= 200",
+  "sample_input": "3\nflower\nflow\nflight",
+  "sample_output": "fl",
+  "tests": [
+   {
+    "input": "3\nflower\nflow\nflight",
+    "expected_output": "fl",
+    "hidden": false
+   },
+   {
+    "input": "3\ndog\nracecar\ncar",
+    "expected_output": "NONE",
+    "hidden": false
+   },
+   {
+    "input": "1\nalone",
+    "expected_output": "alone",
+    "hidden": true
+   },
+   {
+    "input": "2\ninterview\ninterval",
+    "expected_output": "interv",
+    "hidden": true
+   },
+   {
+    "input": "3\nabc\nabc\nabc",
+    "expected_output": "abc",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Roman to Integer",
+  "difficulty": "easy",
+  "topic_tag": "strings",
+  "problem_statement": "Convert a Roman numeral (I, V, X, L, C, D, M with the usual subtractive forms such as IV and IX) to an integer.",
+  "input_format": "One line: the numeral.",
+  "output_format": "One integer.",
+  "constraints": "Value between 1 and 3999",
+  "sample_input": "III",
+  "sample_output": "3",
+  "tests": [
+   {
+    "input": "III",
+    "expected_output": "3",
+    "hidden": false
+   },
+   {
+    "input": "LVIII",
+    "expected_output": "58",
+    "hidden": false
+   },
+   {
+    "input": "MCMXCIV",
+    "expected_output": "1994",
+    "hidden": true
+   },
+   {
+    "input": "IV",
+    "expected_output": "4",
+    "hidden": true
+   },
+   {
+    "input": "MMMCMXCIX",
+    "expected_output": "3999",
+    "hidden": true
+   },
+   {
+    "input": "IX",
+    "expected_output": "9",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "First Unique Character",
+  "difficulty": "easy",
+  "topic_tag": "strings",
+  "problem_statement": "Print the 0-based index of the first character that occurs exactly once in the word, or -1 if there is none.",
+  "input_format": "One word.",
+  "output_format": "One integer.",
+  "constraints": "1 <= length <= 10^5",
+  "sample_input": "leetcode",
+  "sample_output": "0",
+  "tests": [
+   {
+    "input": "leetcode",
+    "expected_output": "0",
+    "hidden": false
+   },
+   {
+    "input": "loveleetcode",
+    "expected_output": "2",
+    "hidden": false
+   },
+   {
+    "input": "aabb",
+    "expected_output": "-1",
+    "hidden": true
+   },
+   {
+    "input": "z",
+    "expected_output": "0",
+    "hidden": true
+   },
+   {
+    "input": "abcabcd",
+    "expected_output": "6",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Longest Substring Without Repeats",
+  "difficulty": "medium",
+  "topic_tag": "sliding_window",
+  "problem_statement": "Print the length of the longest substring in which no character repeats.",
+  "input_format": "One line (may contain spaces).",
+  "output_format": "One integer.",
+  "constraints": "0 <= length <= 10^5",
+  "sample_input": "abcabcbb",
+  "sample_output": "3",
+  "tests": [
+   {
+    "input": "abcabcbb",
+    "expected_output": "3",
+    "hidden": false
+   },
+   {
+    "input": "bbbbb",
+    "expected_output": "1",
+    "hidden": false
+   },
+   {
+    "input": "pwwkew",
+    "expected_output": "3",
+    "hidden": true
+   },
+   {
+    "input": "a b a",
+    "expected_output": "3",
+    "hidden": true
+   },
+   {
+    "input": "dvdf",
+    "expected_output": "3",
+    "hidden": true
+   },
+   {
+    "input": "abcdefghijklmnopqrstuvwxyz",
+    "expected_output": "26",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Longest Palindromic Substring Length",
+  "difficulty": "medium",
+  "topic_tag": "strings",
+  "problem_statement": "Print the length of the longest substring that reads the same forwards and backwards.",
+  "input_format": "One word.",
+  "output_format": "One integer.",
+  "constraints": "1 <= length <= 1000",
+  "sample_input": "babad",
+  "sample_output": "3",
+  "tests": [
+   {
+    "input": "babad",
+    "expected_output": "3",
+    "hidden": false
+   },
+   {
+    "input": "cbbd",
+    "expected_output": "2",
+    "hidden": false
+   },
+   {
+    "input": "a",
+    "expected_output": "1",
+    "hidden": true
+   },
+   {
+    "input": "forgeeksskeegfor",
+    "expected_output": "10",
+    "hidden": true
+   },
+   {
+    "input": "abcde",
+    "expected_output": "1",
+    "hidden": true
+   },
+   {
+    "input": "aaaa",
+    "expected_output": "4",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Group Anagrams Count",
+  "difficulty": "medium",
+  "topic_tag": "hashing",
+  "problem_statement": "Words are in the same group when they are anagrams of each other. Print the number of groups.",
+  "input_format": "Line 1: n. Then n lines, one word each.",
+  "output_format": "One integer.",
+  "constraints": "1 <= n <= 10^4",
+  "sample_input": "6\neat\ntea\ntan\nate\nnat\nbat",
+  "sample_output": "3",
+  "tests": [
+   {
+    "input": "6\neat\ntea\ntan\nate\nnat\nbat",
+    "expected_output": "3",
+    "hidden": false
+   },
+   {
+    "input": "1\na",
+    "expected_output": "1",
+    "hidden": false
+   },
+   {
+    "input": "3\nabc\ncab\nbca",
+    "expected_output": "1",
+    "hidden": true
+   },
+   {
+    "input": "4\nx\ny\nz\nx",
+    "expected_output": "3",
+    "hidden": true
+   },
+   {
+    "input": "5\nlisten\nsilent\nenlist\ngoogle\ngogole",
+    "expected_output": "2",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Generate Parentheses",
+  "difficulty": "medium",
+  "topic_tag": "backtracking",
+  "problem_statement": "Print every well-formed string made of n pairs of parentheses, in alphabetical order (where '(' sorts before ')'), one per line.",
+  "input_format": "One integer n.",
+  "output_format": "One string per line.",
+  "constraints": "1 <= n <= 8",
+  "sample_input": "3",
+  "sample_output": "((()))\n(()())\n(())()\n()(())\n()()()",
+  "tests": [
+   {
+    "input": "3",
+    "expected_output": "((()))\n(()())\n(())()\n()(())\n()()()",
+    "hidden": false
+   },
+   {
+    "input": "1",
+    "expected_output": "()",
+    "hidden": false
+   },
+   {
+    "input": "2",
+    "expected_output": "(())\n()()",
+    "hidden": true
+   },
+   {
+    "input": "4",
+    "expected_output": "(((())))\n((()()))\n((())())\n((()))()\n(()(()))\n(()()())\n(()())()\n(())(())\n(())()()\n()((()))\n()(()())\n()(())()\n()()(())\n()()()()",
+    "hidden": true
+   },
+   {
+    "input": "5",
+    "expected_output": "((((()))))\n(((()())))\n(((())()))\n(((()))())\n(((())))()\n((()(())))\n((()()()))\n((()())())\n((()()))()\n((())(()))\n((())()())\n((())())()\n((()))(())\n((()))()()\n(()((())))\n(()(()()))\n(()(())())\n(()(()))()\n(()()(()))\n(()()()())\n(()()())()\n(()())(())\n(()())()()\n(())((()))\n(())(()())\n(())(())()\n(())()(())\n(())()()()\n()(((())))\n()((()()))\n()((())())\n()((()))()\n()(()(()))\n()(()()())\n()(()())()\n()(())(())\n()(())()()\n()()((()))\n()()(()())\n()()(())()\n()()()(())\n()()()()()",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Decode Ways",
+  "difficulty": "medium",
+  "topic_tag": "dynamic_programming",
+  "problem_statement": "A message of digits is decoded by mapping 1->A, 2->B, ..., 26->Z. Print the number of different ways to decode the digit string.",
+  "input_format": "One line of digits.",
+  "output_format": "One integer.",
+  "constraints": "1 <= length <= 100",
+  "sample_input": "12",
+  "sample_output": "2",
+  "tests": [
+   {
+    "input": "12",
+    "expected_output": "2",
+    "hidden": false
+   },
+   {
+    "input": "226",
+    "expected_output": "3",
+    "hidden": false
+   },
+   {
+    "input": "06",
+    "expected_output": "0",
+    "hidden": true
+   },
+   {
+    "input": "10",
+    "expected_output": "1",
+    "hidden": true
+   },
+   {
+    "input": "2101",
+    "expected_output": "1",
+    "hidden": true
+   },
+   {
+    "input": "11106",
+    "expected_output": "2",
+    "hidden": true
+   },
+   {
+    "input": "1111111111",
+    "expected_output": "89",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Word Break",
+  "difficulty": "medium",
+  "topic_tag": "dynamic_programming",
+  "problem_statement": "Given a dictionary of words and a string, print YES if the string can be split into a sequence of dictionary words (words may be reused), otherwise NO.",
+  "input_format": "Line 1: the string. Line 2: m. Then m lines: dictionary words.",
+  "output_format": "YES or NO",
+  "constraints": "1 <= length <= 300",
+  "sample_input": "leetcode\n2\nleet\ncode",
+  "sample_output": "YES",
+  "tests": [
+   {
+    "input": "leetcode\n2\nleet\ncode",
+    "expected_output": "YES",
+    "hidden": false
+   },
+   {
+    "input": "applepenapple\n2\napple\npen",
+    "expected_output": "YES",
+    "hidden": false
+   },
+   {
+    "input": "catsandog\n5\ncats\ndog\nsand\nand\ncat",
+    "expected_output": "NO",
+    "hidden": true
+   },
+   {
+    "input": "a\n1\nb",
+    "expected_output": "NO",
+    "hidden": true
+   },
+   {
+    "input": "aaaaaaa\n2\naaaa\naaa",
+    "expected_output": "YES",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Edit Distance",
+  "difficulty": "hard",
+  "topic_tag": "dynamic_programming",
+  "problem_statement": "Print the minimum number of single-character insertions, deletions or replacements needed to turn the first word into the second.",
+  "input_format": "Two lines: word1, word2 (either may be empty).",
+  "output_format": "One integer.",
+  "constraints": "0 <= length <= 500",
+  "sample_input": "horse\nros",
+  "sample_output": "3",
+  "tests": [
+   {
+    "input": "horse\nros",
+    "expected_output": "3",
+    "hidden": false
+   },
+   {
+    "input": "intention\nexecution",
+    "expected_output": "5",
+    "hidden": false
+   },
+   {
+    "input": "\nabc",
+    "expected_output": "3",
+    "hidden": true
+   },
+   {
+    "input": "abc\nabc",
+    "expected_output": "0",
+    "hidden": true
+   },
+   {
+    "input": "sunday\nsaturday",
+    "expected_output": "3",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Fizz Buzz Sequence",
+  "difficulty": "easy",
+  "topic_tag": "math",
+  "problem_statement": "For each number from 1 to n print Fizz if it is divisible by 3, Buzz if divisible by 5, FizzBuzz if divisible by both, otherwise the number itself. One value per line.",
+  "input_format": "One integer n.",
+  "output_format": "n lines.",
+  "constraints": "1 <= n <= 1000",
+  "sample_input": "5",
+  "sample_output": "1\n2\nFizz\n4\nBuzz",
+  "tests": [
+   {
+    "input": "5",
+    "expected_output": "1\n2\nFizz\n4\nBuzz",
+    "hidden": false
+   },
+   {
+    "input": "15",
+    "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz",
+    "hidden": false
+   },
+   {
+    "input": "1",
+    "expected_output": "1",
+    "hidden": true
+   },
+   {
+    "input": "30",
+    "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n16\n17\nFizz\n19\nBuzz\nFizz\n22\n23\nFizz\nBuzz\n26\nFizz\n28\n29\nFizzBuzz",
+    "hidden": true
+   },
+   {
+    "input": "100",
+    "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n16\n17\nFizz\n19\nBuzz\nFizz\n22\n23\nFizz\nBuzz\n26\nFizz\n28\n29\nFizzBuzz\n31\n32\nFizz\n34\nBuzz\nFizz\n37\n38\nFizz\nBuzz\n41\nFizz\n43\n44\nFizzBuzz\n46\n47\nFizz\n49\nBuzz\nFizz\n52\n53\nFizz\nBuzz\n56\nFizz\n58\n59\nFizzBuzz\n61\n62\nFizz\n64\nBuzz\nFizz\n67\n68\nFizz\nBuzz\n71\nFizz\n73\n74\nFizzBuzz\n76\n77\nFizz\n79\nBuzz\nFizz\n82\n83\nFizz\nBuzz\n86\nFizz\n88\n89\nFizzBuzz\n91\n92\nFizz\n94\nBuzz\nFizz\n97\n98\nFizz\nBuzz",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Power of Two",
+  "difficulty": "easy",
+  "topic_tag": "math",
+  "problem_statement": "Print YES if the integer is a positive power of two (1, 2, 4, 8, ...), otherwise NO.",
+  "input_format": "One integer.",
+  "output_format": "YES or NO",
+  "constraints": "-2^31 <= n <= 2^31 - 1",
+  "sample_input": "1",
+  "sample_output": "YES",
+  "tests": [
+   {
+    "input": "1",
+    "expected_output": "YES",
+    "hidden": false
+   },
+   {
+    "input": "16",
+    "expected_output": "YES",
+    "hidden": false
+   },
+   {
+    "input": "3",
+    "expected_output": "NO",
+    "hidden": true
+   },
+   {
+    "input": "0",
+    "expected_output": "NO",
+    "hidden": true
+   },
+   {
+    "input": "-8",
+    "expected_output": "NO",
+    "hidden": true
+   },
+   {
+    "input": "1073741824",
+    "expected_output": "YES",
+    "hidden": true
+   },
+   {
+    "input": "6",
+    "expected_output": "NO",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Count Primes",
+  "difficulty": "medium",
+  "topic_tag": "math",
+  "problem_statement": "Print how many prime numbers are strictly less than n.",
+  "input_format": "One integer n.",
+  "output_format": "One integer.",
+  "constraints": "0 <= n <= 5*10^6",
+  "sample_input": "10",
+  "sample_output": "4",
+  "tests": [
+   {
+    "input": "10",
+    "expected_output": "4",
+    "hidden": false
+   },
+   {
+    "input": "0",
+    "expected_output": "0",
+    "hidden": false
+   },
+   {
+    "input": "1",
+    "expected_output": "0",
+    "hidden": true
+   },
+   {
+    "input": "2",
+    "expected_output": "0",
+    "hidden": true
+   },
+   {
+    "input": "3",
+    "expected_output": "1",
+    "hidden": true
+   },
+   {
+    "input": "100",
+    "expected_output": "25",
+    "hidden": true
+   },
+   {
+    "input": "1000000",
+    "expected_output": "78498",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "GCD and LCM",
+  "difficulty": "easy",
+  "topic_tag": "math",
+  "problem_statement": "Print the greatest common divisor and the least common multiple of two positive integers, separated by a space.",
+  "input_format": "Two integers a b on one line.",
+  "output_format": "Two integers.",
+  "constraints": "1 <= a, b <= 10^9",
+  "sample_input": "12 18",
+  "sample_output": "6 36",
+  "tests": [
+   {
+    "input": "12 18",
+    "expected_output": "6 36",
+    "hidden": false
+   },
+   {
+    "input": "7 13",
+    "expected_output": "1 91",
+    "hidden": false
+   },
+   {
+    "input": "1 1",
+    "expected_output": "1 1",
+    "hidden": true
+   },
+   {
+    "input": "1000000000 999999999",
+    "expected_output": "1 999999999000000000",
+    "hidden": true
+   },
+   {
+    "input": "100 25",
+    "expected_output": "25 100",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Plus One",
+  "difficulty": "easy",
+  "topic_tag": "math",
+  "problem_statement": "A non-negative integer is given as a list of its decimal digits, most significant first. Add one and print the digits separated by spaces.",
+  "input_format": "Line 1: n. Line 2: n digits.",
+  "output_format": "Digits separated by spaces.",
+  "constraints": "1 <= n <= 100",
+  "sample_input": "3\n1 2 3",
+  "sample_output": "1 2 4",
+  "tests": [
+   {
+    "input": "3\n1 2 3",
+    "expected_output": "1 2 4",
+    "hidden": false
+   },
+   {
+    "input": "2\n9 9",
+    "expected_output": "1 0 0",
+    "hidden": false
+   },
+   {
+    "input": "1\n0",
+    "expected_output": "1",
+    "hidden": true
+   },
+   {
+    "input": "4\n4 3 2 1",
+    "expected_output": "4 3 2 2",
+    "hidden": true
+   },
+   {
+    "input": "3\n1 9 9",
+    "expected_output": "2 0 0",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Pascal Row",
+  "difficulty": "easy",
+  "topic_tag": "math",
+  "problem_statement": "Print row r (0-based) of Pascal's triangle, values separated by spaces.",
+  "input_format": "One integer r.",
+  "output_format": "r+1 integers.",
+  "constraints": "0 <= r <= 33",
+  "sample_input": "3",
+  "sample_output": "1 3 3 1",
+  "tests": [
+   {
+    "input": "3",
+    "expected_output": "1 3 3 1",
+    "hidden": false
+   },
+   {
+    "input": "0",
+    "expected_output": "1",
+    "hidden": false
+   },
+   {
+    "input": "1",
+    "expected_output": "1 1",
+    "hidden": true
+   },
+   {
+    "input": "10",
+    "expected_output": "1 10 45 120 210 252 210 120 45 10 1",
+    "hidden": true
+   },
+   {
+    "input": "33",
+    "expected_output": "1 33 528 5456 40920 237336 1107568 4272048 13884156 38567100 92561040 193536720 354817320 573166440 818809200 1037158320 1166803110 1166803110 1037158320 818809200 573166440 354817320 193536720 92561040 38567100 13884156 4272048 1107568 237336 40920 5456 528 33 1",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "House Robber",
+  "difficulty": "medium",
+  "topic_tag": "dynamic_programming",
+  "problem_statement": "Houses in a row hold the given amounts of money. You cannot rob two adjacent houses. Print the maximum you can take.",
+  "input_format": "Line 1: n. Line 2: n amounts.",
+  "output_format": "One integer.",
+  "constraints": "1 <= n <= 10^4",
+  "sample_input": "4\n1 2 3 1",
+  "sample_output": "4",
+  "tests": [
+   {
+    "input": "4\n1 2 3 1",
+    "expected_output": "4",
+    "hidden": false
+   },
+   {
+    "input": "5\n2 7 9 3 1",
+    "expected_output": "12",
+    "hidden": false
+   },
+   {
+    "input": "1\n5",
+    "expected_output": "5",
+    "hidden": true
+   },
+   {
+    "input": "4\n2 1 1 2",
+    "expected_output": "4",
+    "hidden": true
+   },
+   {
+    "input": "40\n27 29 0 11 58 82 42 52 69 100 85 23 3 45 20 45 71 87 73 68 27 14 79 91 35 71 96 72 93 27 72 37 72 34 85 71 16 12 100 33",
+    "expected_output": "1190",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Coin Change Minimum",
+  "difficulty": "medium",
+  "topic_tag": "dynamic_programming",
+  "problem_statement": "Given coin values (unlimited supply of each) and an amount, print the fewest coins that make exactly that amount, or -1 if impossible.",
+  "input_format": "Line 1: n coins. Line 2: the n values. Line 3: amount.",
+  "output_format": "One integer.",
+  "constraints": "1 <= n <= 12, 0 <= amount <= 10^4",
+  "sample_input": "3\n1 2 5\n11",
+  "sample_output": "3",
+  "tests": [
+   {
+    "input": "3\n1 2 5\n11",
+    "expected_output": "3",
+    "hidden": false
+   },
+   {
+    "input": "1\n2\n3",
+    "expected_output": "-1",
+    "hidden": false
+   },
+   {
+    "input": "1\n1\n0",
+    "expected_output": "0",
+    "hidden": true
+   },
+   {
+    "input": "3\n186 419 83\n6249",
+    "expected_output": "38",
+    "hidden": true
+   },
+   {
+    "input": "4\n1 5 10 25\n63",
+    "expected_output": "6",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Longest Increasing Subsequence",
+  "difficulty": "medium",
+  "topic_tag": "dynamic_programming",
+  "problem_statement": "Print the length of the longest strictly increasing subsequence (elements need not be adjacent).",
+  "input_format": "Line 1: n. Line 2: n integers.",
+  "output_format": "One integer.",
+  "constraints": "1 <= n <= 2500",
+  "sample_input": "8\n10 9 2 5 3 7 101 18",
+  "sample_output": "4",
+  "tests": [
+   {
+    "input": "8\n10 9 2 5 3 7 101 18",
+    "expected_output": "4",
+    "hidden": false
+   },
+   {
+    "input": "6\n0 1 0 3 2 3",
+    "expected_output": "4",
+    "hidden": false
+   },
+   {
+    "input": "3\n7 7 7",
+    "expected_output": "1",
+    "hidden": true
+   },
+   {
+    "input": "1\n5",
+    "expected_output": "1",
+    "hidden": true
+   },
+   {
+    "input": "60\n12 55 21 13 87 7 97 45 92 23 82 80 13 64 40 35 75 8 37 40 20 33 32 8 1 52 99 32 53 1 7 12 30 2 39 15 12 87 71 73 44 40 99 58 77 80 83 91 78 4 51 40 77 27 76 59 54 86 15 87",
+    "expected_output": "15",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Unique Paths",
+  "difficulty": "medium",
+  "topic_tag": "dynamic_programming",
+  "problem_statement": "A robot starts at the top-left of an m x n grid and may only move right or down. Print the number of different paths to the bottom-right corner.",
+  "input_format": "Two integers m n.",
+  "output_format": "One integer.",
+  "constraints": "1 <= m, n <= 100",
+  "sample_input": "3 7",
+  "sample_output": "28",
+  "tests": [
+   {
+    "input": "3 7",
+    "expected_output": "28",
+    "hidden": false
+   },
+   {
+    "input": "3 2",
+    "expected_output": "3",
+    "hidden": false
+   },
+   {
+    "input": "1 1",
+    "expected_output": "1",
+    "hidden": true
+   },
+   {
+    "input": "10 10",
+    "expected_output": "48620",
+    "hidden": true
+   },
+   {
+    "input": "23 12",
+    "expected_output": "193536720",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Climbing Stairs with Steps",
+  "difficulty": "easy",
+  "topic_tag": "dynamic_programming",
+  "problem_statement": "You can climb 1 or 2 stairs at a time. Print the number of distinct ways to climb n stairs.",
+  "input_format": "One integer n.",
+  "output_format": "One integer.",
+  "constraints": "1 <= n <= 80",
+  "sample_input": "2",
+  "sample_output": "2",
+  "tests": [
+   {
+    "input": "2",
+    "expected_output": "2",
+    "hidden": false
+   },
+   {
+    "input": "3",
+    "expected_output": "3",
+    "hidden": false
+   },
+   {
+    "input": "1",
+    "expected_output": "1",
+    "hidden": true
+   },
+   {
+    "input": "45",
+    "expected_output": "1836311903",
+    "hidden": true
+   },
+   {
+    "input": "80",
+    "expected_output": "37889062373143906",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Search in Rotated Sorted Array",
+  "difficulty": "medium",
+  "topic_tag": "binary_search",
+  "problem_statement": "A sorted array of distinct integers was rotated at an unknown pivot. Print the index of the target, or -1 if absent. Aim for O(log n).",
+  "input_format": "Line 1: n. Line 2: n integers. Line 3: target.",
+  "output_format": "One integer.",
+  "constraints": "1 <= n <= 5000",
+  "sample_input": "7\n4 5 6 7 0 1 2\n0",
+  "sample_output": "4",
+  "tests": [
+   {
+    "input": "7\n4 5 6 7 0 1 2\n0",
+    "expected_output": "4",
+    "hidden": false
+   },
+   {
+    "input": "7\n4 5 6 7 0 1 2\n3",
+    "expected_output": "-1",
+    "hidden": false
+   },
+   {
+    "input": "1\n1\n0",
+    "expected_output": "-1",
+    "hidden": true
+   },
+   {
+    "input": "1\n1\n1",
+    "expected_output": "0",
+    "hidden": true
+   },
+   {
+    "input": "5\n3 4 5 1 2\n1",
+    "expected_output": "3",
+    "hidden": true
+   },
+   {
+    "input": "6\n6 7 1 2 3 4\n7",
+    "expected_output": "1",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Number of Islands",
+  "difficulty": "medium",
+  "topic_tag": "graphs",
+  "problem_statement": "A grid of 0s and 1s is given; 1 is land. Land cells connected horizontally or vertically form an island. Print the number of islands.",
+  "input_format": "Line 1: rows cols. Then rows lines of cols characters (0 or 1).",
+  "output_format": "One integer.",
+  "constraints": "1 <= rows, cols <= 300",
+  "sample_input": "4 5\n11110\n11010\n11000\n00000",
+  "sample_output": "1",
+  "tests": [
+   {
+    "input": "4 5\n11110\n11010\n11000\n00000",
+    "expected_output": "1",
+    "hidden": false
+   },
+   {
+    "input": "4 5\n11000\n11000\n00100\n00011",
+    "expected_output": "3",
+    "hidden": false
+   },
+   {
+    "input": "1 1\n1",
+    "expected_output": "1",
+    "hidden": true
+   },
+   {
+    "input": "1 1\n0",
+    "expected_output": "0",
+    "hidden": true
+   },
+   {
+    "input": "3 3\n101\n010\n101",
+    "expected_output": "5",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Course Schedule",
+  "difficulty": "medium",
+  "topic_tag": "graphs",
+  "problem_statement": "There are n courses (0..n-1) and p prerequisite pairs 'a b' meaning b must be taken before a. Print YES if all courses can be finished (no cycle), otherwise NO.",
+  "input_format": "Line 1: n p. Then p lines: a b.",
+  "output_format": "YES or NO",
+  "constraints": "1 <= n <= 2000, 0 <= p <= 5000",
+  "sample_input": "2 1\n1 0",
+  "sample_output": "YES",
+  "tests": [
+   {
+    "input": "2 1\n1 0",
+    "expected_output": "YES",
+    "hidden": false
+   },
+   {
+    "input": "2 2\n1 0\n0 1",
+    "expected_output": "NO",
+    "hidden": false
+   },
+   {
+    "input": "1 0",
+    "expected_output": "YES",
+    "hidden": true
+   },
+   {
+    "input": "4 3\n1 0\n2 1\n3 2",
+    "expected_output": "YES",
+    "hidden": true
+   },
+   {
+    "input": "3 3\n0 1\n1 2\n2 0",
+    "expected_output": "NO",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Shortest Path in a Maze",
+  "difficulty": "medium",
+  "topic_tag": "graphs",
+  "problem_statement": "A maze grid has '.' open cells and '#' walls. Moving up, down, left or right, print the fewest steps from the top-left cell to the bottom-right cell, or -1 if unreachable. Both corners are open.",
+  "input_format": "Line 1: rows cols. Then rows lines of the grid.",
+  "output_format": "One integer.",
+  "constraints": "1 <= rows, cols <= 200",
+  "sample_input": "3 3\n...\n.#.\n...",
+  "sample_output": "4",
+  "tests": [
+   {
+    "input": "3 3\n...\n.#.\n...",
+    "expected_output": "4",
+    "hidden": false
+   },
+   {
+    "input": "3 3\n.#.\n###\n...",
+    "expected_output": "-1",
+    "hidden": false
+   },
+   {
+    "input": "1 1\n.",
+    "expected_output": "0",
+    "hidden": true
+   },
+   {
+    "input": "2 4\n.#..\n....",
+    "expected_output": "4",
+    "hidden": true
+   },
+   {
+    "input": "4 4\n..#.\n#...\n.#.#\n....",
+    "expected_output": "6",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "N-Queens Count",
+  "difficulty": "hard",
+  "topic_tag": "backtracking",
+  "problem_statement": "Print the number of ways to place n queens on an n x n board so that no two attack each other.",
+  "input_format": "One integer n.",
+  "output_format": "One integer.",
+  "constraints": "1 <= n <= 9",
+  "sample_input": "4",
+  "sample_output": "2",
+  "tests": [
+   {
+    "input": "4",
+    "expected_output": "2",
+    "hidden": false
+   },
+   {
+    "input": "1",
+    "expected_output": "1",
+    "hidden": false
+   },
+   {
+    "input": "2",
+    "expected_output": "0",
+    "hidden": true
+   },
+   {
+    "input": "6",
+    "expected_output": "4",
+    "hidden": true
+   },
+   {
+    "input": "8",
+    "expected_output": "92",
+    "hidden": true
+   },
+   {
+    "input": "9",
+    "expected_output": "352",
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "title": "Median of Two Sorted Arrays",
+  "difficulty": "hard",
+  "topic_tag": "binary_search",
+  "problem_statement": "Two sorted arrays are given. Print the median of all their elements combined, with exactly one digit after the decimal point.",
+  "input_format": "Line 1: n, line 2: n integers. Line 3: m, line 4: m integers. n+m >= 1 (an empty array has an empty line).",
+  "output_format": "A number with one decimal.",
+  "constraints": "0 <= n, m <= 10^5",
+  "sample_input": "2\n1 3\n1\n2",
+  "sample_output": "2.0",
+  "tests": [
+   {
+    "input": "2\n1 3\n1\n2",
+    "expected_output": "2.0",
+    "hidden": false
+   },
+   {
+    "input": "2\n1 2\n2\n3 4",
+    "expected_output": "2.5",
+    "hidden": false
+   },
+   {
+    "input": "0\n\n1\n5",
+    "expected_output": "5.0",
+    "hidden": true
+   },
+   {
+    "input": "3\n1 2 3\n3\n4 5 6",
+    "expected_output": "3.5",
+    "hidden": true
+   },
+   {
+    "input": "1\n-5\n1\n5",
+    "expected_output": "0.0",
+    "hidden": true
+   }
+  ]
+ }
+]
